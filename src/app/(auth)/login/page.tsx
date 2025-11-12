@@ -1,5 +1,5 @@
 import Image from "next/image";
-import spotsLogo from "../images/Spots_logo.png";
+import spotsLogo from "../../images/Spots_logo.png";
 import LoginForm from "./LoginForm";
 import ImageCarousel from "./ImageCarousel";
 
@@ -9,7 +9,7 @@ export default function LogIn() {
       <div className="w-1/2 flex flex-col justify-evenly items-center">
         <ImageCarousel />
       </div>
-      <div className="w-1/2 flex flex-col justify-center items-center">
+      <div className="w-1/2 flex flex-col justify-center items-center text-center">
         <div className="relative w-[150px] h-[150px]">
           <Image
             src={spotsLogo}

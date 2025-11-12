@@ -11,7 +11,7 @@ export default function ImageCarousel() {
     const nextPhoto = () =>
       setIndex((p) => (p === skaterPhotos.length - 1 ? 0 : p + 1));
 
-    const photoWheel = setInterval(nextPhoto, 3000);
+    const photoWheel = setInterval(nextPhoto, 4000);
 
     return () => {
       clearInterval(photoWheel);

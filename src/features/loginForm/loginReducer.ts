@@ -1,7 +1,7 @@
 import type { LoginFormAction, LoginFormState } from "./loginReducerType";
 
 export const initialLoginState: LoginFormState = {
-  username: "",
+  email: "",
   password: "",
 };
 

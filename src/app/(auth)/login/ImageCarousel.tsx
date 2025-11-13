@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { skaterPhotos } from "@/features/loginForm/photosArray";
+import { skaterPhotos } from "@/features/photosArray";
 import Image from "next/image";
 
 export default function ImageCarousel() {

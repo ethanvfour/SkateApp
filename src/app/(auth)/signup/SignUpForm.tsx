@@ -1,38 +1,56 @@
 "use client";
 
+import Link from "next/link";
+import { motion } from "framer-motion";
 import { useReducer, useState } from "react";
 import {
-  initialLoginState,
-  loginFormReducer,
-} from "@/features/loginForm/loginReducer";
-import { motion } from "framer-motion";
+  initialSignUpState,
+  signUpFormReducer,
+} from "@/features/signupForm/signupReducer";
 import { supabase } from "@/lib/supabase";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-export default function LoginForm() {
-  const [formState, dispatch] = useReducer(loginFormReducer, initialLoginState);
+export default function SignUpForm() {
   const [hoverRegister, setHoverRegister] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [signUpSent, setSignUpSent] = useState(false);
+  const [formState, dispatch] = useReducer(
+    signUpFormReducer,
+    initialSignUpState
+  );
 
   const router = useRouter();
 
-  const login = async () => {
+  const signup = async () => {
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signUp({
         email: formState.email,
         password: formState.password,
+        options: {
+          data: {
+            username: formState.username, // Store username in user metadata
+          },
+        },
       });
 
       if (error) {
-        console.error("Login error:", error);
-        alert(`Login failed: ${error.message}`);
+        console.error("Signup error:", error);
+        alert(`Signup failed: ${error.message}`);
         return;
       }
 
       if (data) {
-        console.log("Login successful:", data);
-        router.push("/"); // Redirect to home page after login
+        console.log("Signup successful:", data);
+
+        // Check if email confirmation is required
+        if (data.user && !data.session) {
+          setSignUpSent(true);
+          alert("Please check your email to confirm your account!");
+        } else {
+          // Auto-login successful, redirect to home
+          alert("Signup successful!");
+          router.push("/login");
+        }
       }
     } catch (error) {
       console.error("Unexpected error:", error);
@@ -40,23 +58,23 @@ export default function LoginForm() {
     }
   };
 
-  const handleSubmit = () => {
-    login();
+  const handleSignUp = () => {
+    signup();
   };
-
   return (
     <>
       <form
+        id="sign-up-form"
+        className="flex flex-col justify-center gap-10 items-center flex-1"
         onSubmit={(e) => {
           e.preventDefault();
-          handleSubmit();
+          handleSignUp();
         }}
-        className="flex flex-col h-1/2 justify-center items-center gap-8 w-full"
       >
         <input
           type="email"
           value={formState.email}
-          className="rounded-2xl px-1.5 py-2.5 bg-gray-100 w-1/2"
+          className="rounded-2xl px-1.5 py-2.5 bg-gray-100 w-full"
           onChange={(e) =>
             dispatch({
               type: "SET_FIELD",
@@ -67,7 +85,23 @@ export default function LoginForm() {
           placeholder="Email"
           required
         />
-        <div id="passwordInput" className="relative w-1/2 flex justify-center">
+
+        <input
+          type="email"
+          value={formState.username}
+          className="rounded-2xl px-1.5 py-2.5 bg-gray-100 w-full"
+          onChange={(e) =>
+            dispatch({
+              type: "SET_FIELD",
+              field: "username",
+              payload: e.target.value,
+            })
+          }
+          placeholder="Username"
+          required
+        />
+
+        <div id="passwordInput" className="relative w-full flex justify-center">
           <input
             type={showPassword ? "text" : "password"}
             value={formState.password}
@@ -95,12 +129,14 @@ export default function LoginForm() {
             {`${showPassword ? "Hide" : "Show"}`}
           </motion.button>
         </div>
-
         <motion.button type="submit" className="cursor-pointer">
-          Log in
+          Sign up
         </motion.button>
       </form>
-      <Link href="/signup" className="flex flex-col h-[25px] overflow-hidden cursor-pointer">
+      <Link
+        href="/login"
+        className="flex flex-col h-[25px] overflow-hidden cursor-pointer mb-2"
+      >
         <motion.div
           onHoverStart={() => setHoverRegister(true)}
           onHoverEnd={() => setHoverRegister(false)}
@@ -112,7 +148,7 @@ export default function LoginForm() {
               transform: `translateY(${hoverRegister ? "-25px" : "0px"})`,
             }}
           >
-            {"Don't have an account yet?"}
+            {"Have an account already?"}
           </motion.p>
           <motion.p
             className="h-[25px] transition-transform duration-100 ease-in"
@@ -120,7 +156,7 @@ export default function LoginForm() {
               transform: `translateY(${hoverRegister ? "-25px" : "50px"})`,
             }}
           >
-            {"Let's change that"}
+            {"Let's get back then"}
           </motion.p>
         </motion.div>
       </Link>

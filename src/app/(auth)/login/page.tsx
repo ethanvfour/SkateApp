@@ -3,6 +3,8 @@ import spotsLogo from "../../images/Spots_logo.png";
 import LoginForm from "./LoginForm";
 import ImageCarousel from "./ImageCarousel";
 
+
+
 export default function LogIn() {
   return (
     <div id="log-in-page" className="w-full h-[750px] py-6 flex flex-1">
@@ -19,7 +21,7 @@ export default function LogIn() {
             priority
           />
         </div>
-        <h4 className="text-2xl">Get connected with other skaters now!</h4>
+        <h4 className="text-2xl"></h4>
         <p className="mt-2 text-sm text-gray-600">
           Join local events, find spots, share spots, and share your clips.
         </p>

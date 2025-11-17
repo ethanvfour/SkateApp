@@ -3,6 +3,10 @@ export interface LoginFormState {
   password: string;
 }
 
+export type loadingState = {
+  currentState: "idle" | "loading" | "success";
+}
+
 export type LoginFormAction = {
   type: "SET_FIELD";
   field: keyof LoginFormState;

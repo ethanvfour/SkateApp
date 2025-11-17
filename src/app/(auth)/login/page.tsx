@@ -21,7 +21,7 @@ export default function LogIn() {
             priority
           />
         </div>
-        <h4 className="text-2xl"></h4>
+        <h4 className="text-2xl">Welcome Back</h4>
         <p className="mt-2 text-sm text-gray-600">
           Join local events, find spots, share spots, and share your clips.
         </p>

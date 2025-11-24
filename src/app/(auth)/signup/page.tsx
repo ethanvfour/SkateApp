@@ -1,28 +1,34 @@
 import Image from "next/image";
 import spotsLogo from "../../images/Spots_logo.png";
-import SignUpForm from "./SignUpForm";
+import SignUpForm from "./components/SignUpForm";
+import StatsCounterRight from "./components/StatsCounterRight";
+
 
 export default function signUp() {
   return (
-    <div
-      id="sign-up-page"
-      className="w-full h-[750px] py-6 flex flex-1 justify-center items-center gap-1"
-    >
-      <div className="border-2 border-gray-300 h-5/6 w-1/2 flex flex-col items-center text-center justify-around shadow-lg">
-        <div className="w-[100px] h-[100px] relative">
-          <Image
-            src={spotsLogo}
-            alt="Spots Logo"
-            fill
-            className="object-contain"
-            priority
-          />
+    <div id="sign-up-page" className="w-full min-h-screen flex bg-white">
+      <div className="w-full lg:w-1/2 flex flex-col justify-center items-center px-8 py-12 overflow-y-auto">
+        <div className="w-full max-w-md flex flex-col items-center text-center">
+          <div className="relative w-24 h-24 mb-6">
+            <Image
+              src={spotsLogo}
+              alt="Spots Logo"
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900 mb-2">
+            Create an account
+          </h1>
+          <p className="text-sm text-gray-600 mb-8 px-4">
+            Show people out there what you can do! Make friends by finding people with similar interests!
+          </p>
+          <SignUpForm />
         </div>
-        <h4 className="text-3xl font-thin mb-4">
-          Sign up and get connected with other people now!
-        </h4>
-        <p className="font-light px-5 text-sm">Show people out there what you can do! Make friends by finding people with similar interests! Find new spots that fits your style!</p>
-        <SignUpForm />
+      </div>
+      <div className="hidden lg:flex w-1/2 bg-black relative justify-center items-center overflow-hidden">
+        <StatsCounterRight />
       </div>
     </div>
   );

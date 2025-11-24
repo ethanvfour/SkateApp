@@ -19,19 +19,20 @@ export default function ImageCarousel() {
   }, []);
 
   return (
-    <div className="relative w-full h-3/4">
+    <div className="relative w-full h-full">
       {skaterPhotos.map((photo, i) => (
         <Image
           key={i}
           src={photo}
           alt="Photo of a skater"
           fill
-          className={`object-contain grayscale transition-opacity duration-1000 ${
+          className={`object-cover transition-opacity duration-1000 ${
             i === index ? "opacity-100" : "opacity-0"
           }`}
           priority={i === 0}
         />
       ))}
+      <div className="absolute inset-0 bg-black/20" /> {/* Overlay for better text contrast if needed, or just style */}
     </div>
   );
 }

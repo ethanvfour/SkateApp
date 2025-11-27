@@ -90,6 +90,8 @@ export default function SignUpForm() {
         if (data.user && !data.session) {
           setSignUpSent(true);
           alert("Please check your email to confirm your account!");
+          setIsLoading({ currentState: "success" });
+          return;
         } else {
           // Auto-login successful, redirect to home
           //alert("Signup successful!");
@@ -100,6 +102,7 @@ export default function SignUpForm() {
       console.error("Unexpected error:", error);
       alert("An unexpected error occurred");
     }
+    setIsLoading({ currentState: "idle" });
   };
 
   const isEmailValid = (): boolean => emailRegex.test(formState.email);

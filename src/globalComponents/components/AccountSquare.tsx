@@ -3,16 +3,17 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { CgProfile } from "react-icons/cg";
 import { RxCross1 } from "react-icons/rx";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { createClient } from "@/utils/client";
+import { useUser } from "@/hooks/useUser";
+const supabase = createClient();
 
 export default function AccountSquare() {
-  const usernameTemp = "skater111";
-
-  const supabase = createClient();
-
+  
   const [profileVisible, setProfileVisible] = useState(false);
   const [errorLoggingOut, setErrorLoggingOut] = useState(false);
+
+  const {username} = useUser();
 
   const handleSignOut = useCallback(async () => {
     const { error } = await supabase.auth.signOut();
@@ -29,7 +30,7 @@ export default function AccountSquare() {
     }
 
     window.location.href = "/login";
-  }, [supabase]);
+  }, []);
 
   return (
     <>
@@ -41,7 +42,7 @@ export default function AccountSquare() {
       >
         <CgProfile className="w-full h-full" />
       </motion.button>
-      <h4>{usernameTemp}</h4>
+      <h4>{username}</h4>
       <AnimatePresence>
         {profileVisible && (
           <motion.div
@@ -62,10 +63,10 @@ export default function AccountSquare() {
               </motion.button>
 
               <div className="h-20 w-20 rounded-full bg-gray-800 shadow-md mb-3 flex items-center justify-center text-white text-3xl font-bold">
-                {usernameTemp.charAt(0).toUpperCase()}
+                {username.charAt(0).toUpperCase()}
               </div>
               <h4 className="font-bold text-lg text-gray-900">
-                {usernameTemp}
+                {username}
               </h4>
             </div>
 

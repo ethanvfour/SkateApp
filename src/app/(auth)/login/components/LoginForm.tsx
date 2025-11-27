@@ -10,6 +10,7 @@ import { createClient } from "@/utils/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { loadingState } from "@/features/loginForm/loginReducerType";
+const supabase = createClient();
 
 export default function LoginForm() {
   const [formState, dispatch] = useReducer(loginFormReducer, initialLoginState);
@@ -18,9 +19,6 @@ export default function LoginForm() {
   const [isLoading, setIsLoading] = useState<loadingState>({
     currentState: "idle",
   });
-
-  const router = useRouter();
-  const supabase = createClient();
   
   const login = async () => {
     setErrorMsgs([]);
@@ -163,9 +161,9 @@ export default function LoginForm() {
       </form>
 
       <div className="text-center text-sm text-gray-600">
-        Don't have an account yet?{" "}
+        {"Don't have an account yet? "}
         <Link href="/signup" className="font-medium text-black hover:underline">
-          Let's sign up
+          {"Let's sign up"}
         </Link>
       </div>
     </div>

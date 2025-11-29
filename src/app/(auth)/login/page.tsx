@@ -1,5 +1,5 @@
 import Image from "next/image";
-import spotsLogo from "../../images/Spots_logo.png";
+import spotsLogo from "../../images/Spots_logo_black.png";
 import LoginForm from "./components/LoginForm";
 import ImageCarousel from "./components/ImageCarousel";
 

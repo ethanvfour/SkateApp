@@ -2,7 +2,7 @@ import { createClient } from "@/utils/client";
 import { useEffect, useState } from "react";
 
 export function useUser() {
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState<string>(new Array(10 + 1).join(' '));
   const [loading, setLoading] = useState(true);
   const supabase = createClient();
 

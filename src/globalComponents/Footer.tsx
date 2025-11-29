@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="min-h-[150px] flex flex-col justify-between items-center py-4">
+    <footer className="min-h-[150px] flex flex-col justify-between items-center py-4 bg-black text-white">
       <div className="flex flex-col items-center gap-1">
         <h1 className="font-light text-xl">
           <span className="font-bold">SPOTS</span> is still under development

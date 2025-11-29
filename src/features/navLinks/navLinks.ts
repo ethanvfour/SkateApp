@@ -10,6 +10,10 @@ export const links: link[] = [
     nameOfRoute: "/home",
   },
   {
+    route: "Posts",
+    nameOfRoute: "/posts",
+  },
+  {
     route: "Profile",
     nameOfRoute: "/profile",
     isDynamic: true,

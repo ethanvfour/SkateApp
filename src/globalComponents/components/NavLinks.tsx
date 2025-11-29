@@ -2,32 +2,41 @@
 
 import { links } from "@/features/navLinks/navLinks";
 import { useUser } from "@/hooks/useUser";
-import { createClient } from "@/utils/client";
 import Link from "next/link";
-import { useState } from "react";
-
-const supabase = createClient();
+import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 
 export default function NavLinks() {
   const { username } = useUser();
+  const pathname = usePathname();
 
   return (
-    <nav id="nav-links" className="w-3/4 px-4 flex flex-row justify-around">
-      {links.map((curr, i) => {
-        if (curr.isDynamic) {
+    <nav className="relative flex items-center justify-center p-2">
+      <ul className="flex items-center gap-8">
+        {links.map((curr) => {
+          const href = curr.isDynamic
+            ? `${curr.nameOfRoute}/${username}`
+            : curr.nameOfRoute;
+
+          const isActive = pathname === href;
+
           return (
-            <Link key={i} href={`${curr.nameOfRoute}/${username}`}>
-              {curr.route}
-            </Link>
+            <li key={curr.route} className="relative">
+              <Link
+                href={href}
+                className={`relative z-10 block text-lg font-bold uppercase tracking-tight transition-colors duration-200 ${
+                  isActive
+                    ? "text-white"
+                    : "text-[#939393] hover:text-white"
+                }`}
+              >
+                {curr.route}
+                
+              </Link>
+            </li>
           );
-        } else {
-          return (
-            <Link key={i} href={`${curr.nameOfRoute}`}>
-              {curr.route}
-            </Link>
-          );
-        }
-      })}
+        })}
+      </ul>
     </nav>
   );
 }

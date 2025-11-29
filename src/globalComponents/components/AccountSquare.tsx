@@ -35,47 +35,53 @@ export default function AccountSquare() {
   return (
     <>
       <motion.button
-        whileTap={{ scale: 0.98 }}
+        whileTap={{ scale: 0.95 }}
         onClick={() => setProfileVisible(true)}
         whileHover={{ scale: 1.05 }}
-        className="w-[50px] h-[50px] cursor-pointer"
+        className="w-[50px] h-[50px] cursor-pointer bg-white text-black border-2 border-black rounded-lg flex items-center justify-center shadow-md hover:shadow-lg transition-shadow"
       >
-        <CgProfile className="w-full h-full" />
+        {username ? (
+          <span className="font-bold text-xl uppercase">
+            {username.charAt(0)}
+          </span>
+        ) : (
+          <CgProfile className="w-8 h-8" />
+        )}
       </motion.button>
-      <h4>{username}</h4>
+      
       <AnimatePresence>
         {profileVisible && (
           <motion.div
             id="profile"
-            className="absolute top-16 right-0 w-72 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden z-50"
+            className="absolute top-16 right-0 w-72 bg-white border-2 border-black rounded-xl shadow-xl z-50 overflow-hidden"
             initial={{ opacity: 0, y: -10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
           >
-            <div className="p-6 flex flex-col items-center border-b border-gray-100 relative">
+            <div className="p-6 flex flex-col items-center border-b-2 border-black relative bg-white">
               <motion.button
-                className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 p-1 rounded-full hover:bg-gray-100 transition-colors"
+                className="absolute top-2 right-2 text-black hover:text-red-600 p-1 transition-colors"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setProfileVisible(false)}
               >
-                <RxCross1 size={18} />
+                <RxCross1 size={20} />
               </motion.button>
 
-              <div className="h-20 w-20 rounded-full bg-gray-800 shadow-md mb-3 flex items-center justify-center text-white text-3xl font-bold">
-                {username.charAt(0).toUpperCase()}
+              <div className="h-20 w-20 border-2 border-black bg-black text-white mb-3 flex items-center justify-center text-3xl font-bold uppercase rounded-full shadow-md">
+                {username ? username.charAt(0).toUpperCase() : "?"}
               </div>
-              <h4 className="font-bold text-lg text-gray-900">
-                {username}
+              <h4 className="font-bold text-xl uppercase tracking-tight text-black">
+                {username || "Guest"}
               </h4>
             </div>
 
-            <div className="p-3 bg-gray-50">
+            <div className="p-4 bg-white">
               <motion.button
                 onClick={handleSignOut}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full bg-white border border-gray-200 text-red-600 px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-red-50 hover:border-red-100 transition-colors shadow-sm"
+                className="w-full bg-red-600 border-2 border-black text-white px-4 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wide shadow-md hover:shadow-lg transition-all"
               >
                 Log Out
               </motion.button>
@@ -89,7 +95,7 @@ export default function AccountSquare() {
                       marginTop: "0.5rem",
                     }}
                     exit={{ opacity: 0, height: 0, marginTop: 0 }}
-                    className="text-center font-bold text-xs text-red-600 overflow-hidden"
+                    className="text-center font-bold uppercase text-xs text-red-600 overflow-hidden"
                   >
                     Error logging out!
                   </motion.h4>
